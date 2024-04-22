@@ -1,37 +1,45 @@
+// Include necessary libraries
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
 
+// Define constants for matrix size and number of threads
 #define MATRIX_SIZE 3
 #define NUM_THREADS 3
 
+// Declare global matrices and variables
 int matrixA[MATRIX_SIZE][MATRIX_SIZE];
 int matrixB[MATRIX_SIZE][MATRIX_SIZE];
 int resultMatrix[MATRIX_SIZE][MATRIX_SIZE];
 int calculationCount = 0; // Initialize calculationCount
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER; // Initialize mutex
 
+// Define a struct to hold thread data
 typedef struct {
     int row;
     int col;
 } thread_data_t;
 
+// Function to perform matrix multiplication in a thread
 void *multiply(void *arg) {
     thread_data_t *data = (thread_data_t *)arg;
     int localCount = 0;
 
+    // Perform matrix multiplication
     for (int i = 0; i < MATRIX_SIZE; i++) {
         resultMatrix[data->row][data->col] += matrixA[data->row][i] * matrixB[i][data->col];
         localCount++; // Increment localCount for each calculation
     }
 
-    pthread_mutex_lock(&mutex); // Lock mutex before updating calculationCount
+    // Lock mutex before updating calculationCount
+    pthread_mutex_lock(&mutex);
     calculationCount += localCount; // Update calculationCount
     pthread_mutex_unlock(&mutex); // Unlock mutex
 
     pthread_exit(NULL);
 }
 
+// Main function
 int main() {
     pthread_t threads[NUM_THREADS];
     thread_data_t thread_data[NUM_THREADS];

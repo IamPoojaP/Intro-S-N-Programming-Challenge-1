@@ -6,7 +6,7 @@
 
 *Note: This code was written and tested on Mac and the directions are written based on that.* 
 
-**Directions to run on Mac:**
+**Directions:**
     <ul>
     <li> Clone the Directory from the terminal: </li>
         **```git clone https://github.com/IamPoojaP/Intro-S-N-Programming-Challenge-1.git```**

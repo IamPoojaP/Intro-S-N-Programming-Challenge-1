@@ -1,4 +1,4 @@
-# Intro-S-N-Programming-Challenge-1
+# Intro to Systems and Networks Programming Challenge 1
 
 **Objective:** Implement a threaded version of a matrix multiplication program.
 
